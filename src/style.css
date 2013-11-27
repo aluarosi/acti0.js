@@ -1,7 +1,21 @@
+body {
+    position:absolute;
+    height: 98%;
+    width: 98%;
+}
 
 #container3 {
+    position: absolute;
     height: 100%;
     width:  100%;
+}
+
+video#video_video {
     position: absolute;
-    border: 1px solid red;
+    bottom: 0px;
+    left: 0px;
+}
+
+canvas#video_canvas {
+    position: absolute;
 }

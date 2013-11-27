@@ -14,6 +14,8 @@ define(['event0'], function(event0){
          * Setup
          */
         var setup = function(thisapp){
+            // Tentative: passing setup_context to the listener
+            //  will it be useful?
             var setup_context = {};
             console.log("event0.app.setup");
             thisapp.emit('setup', setup_context);
@@ -23,7 +25,8 @@ define(['event0'], function(event0){
          */
         var loop = function(thisapp){
             console.log("event0.app.loop");
-            // Context for the render loop
+            // Tentative: passing render_context to the listener
+            //  will it be useful?
             var render_context = {};
             // This is our "inner-reactor loop"
             (function render(){

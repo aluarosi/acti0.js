@@ -11,11 +11,13 @@ require.config({
 
 require([   'jquery',
             'acti0',
+            'setup_video',
             'setup_scene3'
             ], 
             function(
                 jq, 
                 acti0, 
+                setup_video,
                 setup_scene3
             ){
 
@@ -27,6 +29,7 @@ require([   'jquery',
     });
 
     // SETUP
+    app.on('setup', setup_video);
     app.on('setup', setup_scene3);
     
     // RUN
