@@ -48,8 +48,12 @@ define(['jquery','event0'], function(jquery, event0){
         var image_data = this.context.getImageData(0,0, this.canvas.width, this.canvas.height);
         this.emit('canvas-data', image_data);
     };
-
-
+    // TODO: think about this. Methods receive* cacth events
+    // TODO: do we need the event_type ?
+    VideoManager.prototype.receiveRender = function(event_emitter, event_data){
+        console.log("--",event_emitter, event_data);
+        this.drawToCanvas(); 
+    };
 
     // SETUP function to be exported
     var setup_video = function(thisapp){
@@ -62,7 +66,7 @@ define(['jquery','event0'], function(jquery, event0){
         var video_manager = new VideoManager();
         thisapp.share(video_manager, 'video_manager');
 
-        thisapp.onX('render', video_manager.drawToCanvas.bind(video_manager));
+        thisapp.onX('render', video_manager.receiveRender.bind(video_manager));
 
     };
     return setup_video;
