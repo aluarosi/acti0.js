@@ -1,7 +1,7 @@
-/** 
- * This file is part of event0.js 
- * (Javascript Event-Emitter-Receiver implementation with a twist)
- * https://github.com/aluarosi/event0.js
+/**
+ * This file is part of acti0.js
+ * (JavaScript framework for building interactive visualizations in the web browser)
+ * https://github.com/aluarosi/acti0.js
  * 
  * Copyright (C) 2013 Alvaro Santamaria Herrero (aluarosi)
  * 
@@ -48,7 +48,7 @@ SUMMARY:
     EMITTER-(calls)----------------------------------->listener()->RECEIVER
     The listener is now a method of the RECEIVER.
     This case makes it easier to call a listener when it is a method 
-    of other object.
+    of another object.
  */
 
 define(function(){
