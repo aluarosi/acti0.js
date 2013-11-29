@@ -24,11 +24,15 @@ define(['three','jquery','cube','orbitpan'],
     function(three, jquery, cube, orbitpan){
     //TODO: THREE is in the global scope now, but three is undefined
 
+    // SETUP function to export
     var setup_scene3 = function(thisapp){
         /** 
          * 'this' refers to acti0.app, where this function is attached as 'setup' listener
-         * READS:
-         *  this.config.
+         *  EVENTS:
+         *      register:   'render' --> update_camera()
+         *      register:   'render' --> render()
+         *  SHARED:
+         *      my_cube, 'cube'
          */
 
         console.log("setup_scene3");

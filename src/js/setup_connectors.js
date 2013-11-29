@@ -19,44 +19,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// main
-require.config({
-    urlBase: "js",
-    paths: {
-        jquery: "lib/jquery",
-        three:  "lib/three_r61",
-        orbitpan: "lib/OrbitAndPanControls.new"
-    }
-});
+// connectors
+define([], function(){
+    var setup_connectors = function(thisapp){
 
-require([   'jquery',
-            'acti0',
-            'setup_video',
-            'setup_scene3',
-            'setup_connectors'
-            ], 
-            function(
-                jq, 
-                acti0, 
-                setup_video,
-                setup_scene3,
-                setup_connectors
-            ){
-
-    var app = acti0.app;
-
-    // CONFIG
-    app.setConfig({
-        size    :   1
-    }); 
-    // SETUP
-    app.on('setup', setup_video);
-    app.on('setup', setup_scene3);
-
-    app.on('setup', setup_connectors);
-
-    
-    // RUN
-    app.run();
-
+        // video_manager -->('canvas-data')--> cube
+        thisapp.shared.video_manager.on('canvas-data', function(data){
+            var r = data.data[0];
+            var g = data.data[1];
+            var b = data.data[2];
+            //var a = data.data[3];
+            thisapp.shared.cube.setColor(r,g,b);
+            thisapp.shared.cube.setSize(r,g,b);
+            // Stop 
+            //thisapp.shared.video_manager.removeListener('canvas-data', arguments.callee );
+        });
+    }; 
+    return setup_connectors;
 });

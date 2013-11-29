@@ -22,36 +22,31 @@
 // setup_video
 define(['jquery','event0'], function(jquery, event0){
 
-
     // CLASSES (these could be taken out to a requirejs module)
+    /**
+     * VideoManager
+     * EVENTS:
+     *      emit:       --> 'canvas-drawn' image_data
+     *      receive:    'render' --> receiveRender()
+    */
     var VideoManager = function(){
-        /**
-         * VideoManager
-         * EVENTS:
-         *      emit('canvas-drawn', image_data)
-         */
         this.video = $('#video_video')[0];
         this.canvas = $('#video_canvas')[0];
         this.context = this.canvas.getContext('2d');
 
         this.canvas.width = this.video.clientWidth;
         this.canvas.height = this.video.clientHeight;
-        //this.canvas.width = this.canvas.width/10;
-        //this.canvas.height = this.canvas.height/10;
         this.canvas.width = 192;
         this.canvas.height = 125;
     };
-    
     VideoManager.prototype = Object.create(event0.EventEmitter.prototype);
     VideoManager.prototype.drawToCanvas = function(){
         this.context.drawImage(this.video, 0,0, this.canvas.width,this.canvas.height );
         var image_data = this.context.getImageData(0,0, this.canvas.width, this.canvas.height);
         this.emit('canvas-data', image_data);
     };
-    // TODO: think about this. Methods receive* cacth events
-    // TODO: do we need the event_type ?
+    // Receiver method
     VideoManager.prototype.receiveRender = function(event_emitter, event_data){
-        console.log("--",event_emitter, event_data);
         this.drawToCanvas(); 
     };
 
@@ -59,13 +54,18 @@ define(['jquery','event0'], function(jquery, event0){
     var setup_video = function(thisapp){
     /** 
      * 'this' refers to acti0.app, where this function is attached as 'setup' listener
-     * READS:
-     *  this.config
+     *  EVENTS:
+     *      register:   'render' --> VideoManager.receiveRender()
+     *  SHARED:
+     *      video_manager, 'video_manager'
      */
 
         var video_manager = new VideoManager();
+
+        // Shared objects
         thisapp.share(video_manager, 'video_manager');
 
+        // Register event handler
         thisapp.onX('render', video_manager.receiveRender.bind(video_manager));
 
     };
