@@ -22,7 +22,7 @@
 // cube
 define(['cosa'], function(cosa){
 
-    Cube = function(spec){
+    var Cube = function(spec){
         // Validate spec
         var spec = spec !== undefined ? spec : {};
         this.size = typeof spec.size === "number" && spec.size ? spec.size : 2;

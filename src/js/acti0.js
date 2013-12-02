@@ -15,8 +15,6 @@ define(['event0'], function(event0){
         this.share = function(obj, name){
            this.shared[name] = obj; 
         };
-    
-
         /**
          * Setup
          */

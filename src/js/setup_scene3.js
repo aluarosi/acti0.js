@@ -20,8 +20,8 @@
  */
 
 // setup_scene3
-define(['three','jquery','cube','orbitpan'], 
-    function(three, jquery, cube, orbitpan){
+define(['three','jquery','cube','orbitpan','surface'], 
+    function(three, jquery, cube, orbitpan, surface){
     //TODO: THREE is in the global scope now, but three is undefined
 
     // SETUP function to export
@@ -79,10 +79,14 @@ define(['three','jquery','cube','orbitpan'],
             size    : this.config.size
         });
         my_cube.build(scene);
-        console.log(scene);
+        var my_surface = new surface.Surface({
+            
+        });
+        my_surface.build(scene);
 
         // SHARE
         thisapp.share(my_cube, 'cube');
+        thisapp.share(my_surface, 'surface');
     
         // RENDER LOOP
         var clock = new THREE.Clock();

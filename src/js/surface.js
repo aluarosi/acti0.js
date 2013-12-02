@@ -19,26 +19,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// connectors
-define([], function(){
-    var setup_connectors = function(thisapp){
+// surface
+define(['cosa'], function(cosa){
 
-        // video_manager -->('canvas-data')--> cube
-        thisapp.shared.video_manager.on('canvas-data', function(data){
-            var r = data.data[0];
-            var g = data.data[1];
-            var b = data.data[2];
-            //var a = data.data[3];
-            thisapp.shared.cube.setColor(r,g,b);
-            thisapp.shared.cube.setSize(r,g,b);
-            // Stop 
-            //thisapp.shared.video_manager.removeListener('canvas-data', arguments.callee );
-        });
+    var Surface = function(spec){
+        var thisobject = this;
+        // Validate spec
 
-        // video_mamager --> ('canvas-data')--> surface
-        thisapp.shared.video_manager.on('canvas-data', function(data){
-            thisapp.shared.surface.updateFromCanvasData(data);
-        });
+
+        // Extend Cosa
+        cosa.Cosa.call(thisobject, spec);
+
+        // Children
+        this.children = {
+            // mesh : 
+        };
+
+        //Position children
+        //var that = this;
+        //this.children.cloud.setPos3D = function(position_3d){
+        //};
+
+
     }; 
-    return setup_connectors;
+
+    Surface.prototype = Object.create(cosa.Cosa.prototype);
+
+    Surface.prototype.updateFromCanvasData = function(canvas_data){
+        //console.log("updateFromCanvasData", canvas_data);
+    };
+
+    return {
+        Surface  :   Surface
+    };
 });
