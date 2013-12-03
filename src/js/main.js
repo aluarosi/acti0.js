@@ -24,7 +24,7 @@ require.config({
     urlBase: "js",
     paths: {
         jquery: "lib/jquery",
-        three:  "lib/three_r61",
+        three:  "lib/three_r63",
         orbitpan: "lib/OrbitAndPanControls.new"
     }
 });

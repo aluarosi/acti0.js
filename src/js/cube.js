@@ -66,7 +66,8 @@ define(['cosa'], function(cosa){
         var cube = new THREE.Mesh(
             geometry,
             new THREE.MeshLambertMaterial({
-                color   :   this.color
+                color   :   this.color,
+                wireframe : true
             })
         );
         this.cube = cube;

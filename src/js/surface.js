@@ -25,6 +25,8 @@ define(['cosa'], function(cosa){
     var Surface = function(spec){
         var thisobject = this;
         // Validate spec
+        var spec = typeof spec !== "undefined" ? spec : {};
+        this.canvas_data = null;
 
 
         // Extend Cosa
@@ -40,13 +42,67 @@ define(['cosa'], function(cosa){
         //this.children.cloud.setPos3D = function(position_3d){
         //};
 
-
+        //Position itself
     }; 
 
     Surface.prototype = Object.create(cosa.Cosa.prototype);
 
     Surface.prototype.updateFromCanvasData = function(canvas_data){
-        //console.log("updateFromCanvasData", canvas_data);
+        this.canvas_data = canvas_data;
+        this.rebuild();
+    };
+
+    // Paint
+    Surface.prototype.paint = function(object_3d){
+        var o = object_3d;
+        var canvas_data = this.canvas_data;
+        if (canvas_data === null) return;
+        
+        var h = canvas_data.height; 
+        var w = canvas_data.width;
+        
+
+        var eachpixel = function(callback){
+            var r,g,b,a;
+            var index;
+            for (var i=0; i<h; i++){
+                for (var j=0; j<w; j++){
+                    index = (i*w + j)*4; 
+                    r = canvas_data.data[index];
+                    g = canvas_data.data[index+1];
+                    b = canvas_data.data[index+2];
+
+                    callback(i,j,r,g,b);
+                };
+            };
+        };
+
+        var geometry = new THREE.Geometry();
+        eachpixel(function(i,j,r,g,b){
+            var x = j/20;
+            var y = i/20;
+            geometry.vertices.push( new THREE.Vector3(x,y,g/255*3));
+            geometry.colors.push(new THREE.Color().setRGB(r/255,g/255,b/255));
+        });
+        geometry.computeBoundingSphere();
+
+        var material = new THREE.ParticleSystemMaterial({
+            size : 1/10,
+            vertexColors: true
+        });
+
+
+        var particles = new THREE.ParticleSystem(
+            geometry,
+            material
+        );
+    
+        o.add(particles); 
+
+        o.position.set(-2,-2,0);
+
+
+
     };
 
     return {

@@ -84,6 +84,8 @@ define(['three','jquery','cube','orbitpan','surface'],
         });
         my_surface.build(scene);
 
+        console.log(scene);
+
         // SHARE
         thisapp.share(my_cube, 'cube');
         thisapp.share(my_surface, 'surface');
