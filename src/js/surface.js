@@ -77,6 +77,7 @@ define(['cosa'], function(cosa){
             };
         };
 
+    /**
         var geometry = new THREE.Geometry();
         eachpixel(function(i,j,r,g,b){
             var x = j/20;
@@ -84,6 +85,34 @@ define(['cosa'], function(cosa){
             geometry.vertices.push( new THREE.Vector3(x,y,g/255*3));
             geometry.colors.push(new THREE.Color().setRGB(r/255,g/255,b/255));
         });
+    */
+
+        var geometry = new THREE.BufferGeometry();
+        geometry.addAttribute( 'position', Float32Array, h*w, 3);
+        geometry.addAttribute( 'color', Float32Array, h*w, 3);
+
+        var positions = geometry.attributes.position.array;
+        var colors = geometry.attributes.color.array;
+
+        var idx =0;
+        var color = new THREE.Color().setRGB(0,1,0);
+        eachpixel( function(i,j,r,g,b) {
+            var x = j/20;
+            var y = i/20;
+
+            idx = (w*i + j) * 3;
+
+            positions[idx] = x;
+            positions[idx+1] = y;
+            positions[idx+2] = g/255*3;
+
+            color.setRGB(r/255, g/255, b/255);
+
+            colors[idx] = color.r;
+            colors[idx+1] = color.g;
+            colors[idx+2] = color.b;
+        });
+
         geometry.computeBoundingSphere();
 
         var material = new THREE.ParticleSystemMaterial({
