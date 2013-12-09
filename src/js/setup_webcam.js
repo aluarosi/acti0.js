@@ -21,9 +21,9 @@
 
 // setup_webcam
 
-define([], function(){
+define(['event0'], function(event0){
 
-    //  
+    // Aux functions
     var hasGetUserMedia = function() {
         return  !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
                 navigator.mozGetUserMedia || navigator.msGetUserMedia);
@@ -43,6 +43,27 @@ define([], function(){
         };
     };
 
+    // WEBCAM manager
+    var WebCamManager = function(video_element){
+        this.video = video_element;
+
+    };
+    WebCamManager.prototype = Object.create(event0.EventEmitter.prototype);
+    WebCamManager.prototype.activate = function(){
+        var _this = this;
+        goIfGetUserMedia(function(){
+            navigator.getUserMedia(
+                {"video": true, "audio": false}, 
+                function(localMediaStream){
+                    _this.video.src = window.URL.createObjectURL(localMediaStream);
+                },
+                function(e){
+                    console.log("callback error", e);
+                }
+            );
+        });
+    };
+
 
 
     // SETUP function to be exported
@@ -51,18 +72,12 @@ define([], function(){
 
         var video = document.querySelector('video');
 
-        goIfGetUserMedia(function(){
-            navigator.getUserMedia(
-                {"video": true, "audio": false}, 
-                function(localMediaStream){
-                    console.log(video);
-                    video.src = window.URL.createObjectURL(localMediaStream);
-                },
-                function(e){
-                    console.log("callback error", e);
-                }
-            );
-        });
+        webcam = new WebCamManager(video);
+
+        //thisapp.share(webcam, 'webcam');
+
+        webcam.activate();
+
     };
     return setup_webcam; 
 
