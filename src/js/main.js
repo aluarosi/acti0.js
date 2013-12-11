@@ -67,7 +67,6 @@ require([   'jquery',
     app.on('setup', setup_controls);
     app.on('setup', setup_connectors);
 
-    console.log("---",app); 
     // RUN
     app.run();
 

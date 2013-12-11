@@ -39,7 +39,6 @@ define(['three','jquery','cube','orbitpan','surface'],
 
         // Renderer
         var container = $(thisapp.shared.html_container3d);
-        console.log("---",container);
         var renderer = new THREE.WebGLRenderer( {antialias: true} );
         renderer.setSize( container.outerWidth(), container.outerHeight() );
         renderer.gammaOutput = false;
@@ -84,8 +83,6 @@ define(['three','jquery','cube','orbitpan','surface'],
             
         });
         my_surface.build(scene);
-
-        console.log(scene);
 
         // SHARE
         thisapp.share(my_cube, 'cube');
