@@ -20,7 +20,7 @@
  */
 
 // setup_video
-define(['jquery','event0'], function(jquery, event0){
+define(['event0'], function(event0){
 
     // CLASSES (these could be taken out to a requirejs module)
     /**
@@ -29,9 +29,9 @@ define(['jquery','event0'], function(jquery, event0){
      *      emit:       --> 'canvas-drawn' image_data
      *      receive:    'render' --> receiveRender()
     */
-    var VideoManager = function(){
-        this.video = $('#video_video')[0];
-        this.canvas = $('#video_canvas')[0];
+    var VideoManager = function(html_video, html_canvas){
+        this.video = html_video;
+        this.canvas = html_canvas;
         this.context = this.canvas.getContext('2d');
 
         this.canvas.width = this.video.clientWidth;
@@ -49,6 +49,10 @@ define(['jquery','event0'], function(jquery, event0){
     VideoManager.prototype.receiveRender = function(event_emitter, event_data){
         this.drawToCanvas(); 
     };
+    // Setter methods
+    VideoManager.prototype.setSource = function(src){
+        this.video.src = src;
+    };
 
     // SETUP function to be exported
     var setup_video = function(thisapp){
@@ -60,7 +64,10 @@ define(['jquery','event0'], function(jquery, event0){
      *      video_manager, 'video_manager'
      */
 
-        var video_manager = new VideoManager();
+        var video_manager = new VideoManager(
+            thisapp.shared.html_video,
+            thisapp.shared.html_video_canvas
+        );
 
         // Shared objects
         thisapp.share(video_manager, 'video_manager');

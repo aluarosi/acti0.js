@@ -38,16 +38,17 @@ define(['three','jquery','cube','orbitpan','surface'],
         console.log("setup_scene3");
 
         // Renderer
-        var container = $("#container3");
+        var container = $(thisapp.shared.html_container3d);
+        console.log("---",container);
         var renderer = new THREE.WebGLRenderer( {antialias: true} );
-        renderer.setSize( $('#container3').outerWidth(), $('#container3').outerHeight() );
+        renderer.setSize( container.outerWidth(), container.outerHeight() );
         renderer.gammaOutput = false;
         container.append( renderer.domElement );
 
         // Cameras
         var camera = new THREE.PerspectiveCamera(
             35.0,
-            $('#container3').outerWidth()/$('#container3').outerHeight(),
+            container.outerWidth()/container.outerHeight(),
             0.01, 4000
         );
         //camera.position.set( 0, 0, this.h3visualizer_controls.size *2.8 );
@@ -56,9 +57,9 @@ define(['three','jquery','cube','orbitpan','surface'],
         // On window resize : update camera and renderer dom element size
         window.addEventListener( 'resize',
             function(){
-                camera.aspect = $('#container3').outerWidth()/$('#container3').outerHeight();
+                camera.aspect = container.outerWidth()/container.outerHeight();
                 camera.updateProjectionMatrix();
-                renderer.setSize( $('#container3').outerWidth(), $('#container3').outerHeight());
+                renderer.setSize( container.outerWidth(), container.outerHeight());
             }, 
             false
         );
@@ -76,7 +77,7 @@ define(['three','jquery','cube','orbitpan','surface'],
         var scene = new THREE.Scene(); 
     
         var my_cube = new cube.Cube({
-            size    : this.config.size
+            size    : thisapp.config.size
         });
         my_cube.build(scene);
         var my_surface = new surface.Surface({

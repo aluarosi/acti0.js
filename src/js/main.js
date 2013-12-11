@@ -25,23 +25,28 @@ require.config({
     paths: {
         jquery: "lib/jquery",
         three:  "lib/three_r63",
-        orbitpan: "lib/OrbitAndPanControls.new"
+        orbitpan: "lib/OrbitAndPanControls.new",
+        datgui: "lib/dat.gui.min"
     }
 });
 
 require([   'jquery',
             'acti0',
+            'setup_html',
             'setup_video',
             'setup_scene3',
             'setup_webcam',
+            'setup_controls',
             'setup_connectors'
             ], 
             function(
                 jq, 
                 acti0, 
+                setup_html,
                 setup_video,
                 setup_scene3,
                 setup_webcam,
+                setup_controls,
                 setup_connectors
             ){
 
@@ -49,16 +54,20 @@ require([   'jquery',
 
     // CONFIG
     app.setConfig({
-        size    :   1
+        size        : 0.1,
+        controls    : {
+            source  : ['file','webcam']
+        }
     }); 
     // SETUP
+    app.on('setup', setup_html);
     app.on('setup', setup_video);
     app.on('setup', setup_scene3);
     app.on('setup', setup_webcam);
-
+    app.on('setup', setup_controls);
     app.on('setup', setup_connectors);
 
-    
+    console.log("---",app); 
     // RUN
     app.run();
 

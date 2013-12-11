@@ -14,8 +14,16 @@ video#video_video {
     position: absolute;
     bottom: 0px;
     left: 0px;
+    width: 100px;
 }
 
 canvas#video_canvas {
     position: absolute;
+}
+
+#controls{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    border: 1px solid red;
 }

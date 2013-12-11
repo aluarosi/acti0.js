@@ -44,8 +44,8 @@ define(['event0'], function(event0){
     };
 
     // WEBCAM manager
-    var WebCamManager = function(video_element){
-        this.video = video_element;
+    var WebCamManager = function(video_manager){
+        this.video_manager = video_manager;
 
     };
     WebCamManager.prototype = Object.create(event0.EventEmitter.prototype);
@@ -55,7 +55,7 @@ define(['event0'], function(event0){
             navigator.getUserMedia(
                 {"video": true, "audio": false}, 
                 function(localMediaStream){
-                    _this.video.src = window.URL.createObjectURL(localMediaStream);
+                    _this.video_manager.setSource(window.URL.createObjectURL(localMediaStream));
                 },
                 function(e){
                     console.log("callback error", e);
@@ -70,13 +70,9 @@ define(['event0'], function(event0){
     var setup_webcam = function(thisapp){
         console.log("SETUP WEBCAM");
 
-        var video = document.querySelector('video');
+        var webcam = new WebCamManager(thisapp.shared.video_manager);
 
-        webcam = new WebCamManager(video);
-
-        //thisapp.share(webcam, 'webcam');
-
-        webcam.activate();
+        thisapp.share(webcam, 'webcam');
 
     };
     return setup_webcam; 

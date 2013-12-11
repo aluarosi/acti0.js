@@ -27,7 +27,7 @@ define(['cosa'], function(cosa){
         var spec = spec !== undefined ? spec : {};
         this.size = typeof spec.size === "number" && spec.size ? spec.size : 2;
         this.color = new THREE.Color().setRGB(1,0,0);
-    
+
         // Extend Cosa
         cosa.Cosa.call(this, spec);
         
@@ -53,6 +53,7 @@ define(['cosa'], function(cosa){
     };
 
     Cube.prototype.paint = function(object_3d){
+        return; // TODO: temporarily deactivated
         var o = object_3d;
     
         var light = new THREE.HemisphereLight(0x777777,0x222222);

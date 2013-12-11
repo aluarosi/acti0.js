@@ -19,26 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// setup_connectors
+// setup_html
+
 define([], function(){
-    var setup_connectors = function(thisapp){
+    var setup_html = function(thisapp){
 
-        // video_manager -->('canvas-data')--> cube
-        thisapp.shared.video_manager.on('canvas-data', function(data){
-            var r = data.data[0];
-            var g = data.data[1];
-            var b = data.data[2];
-            //var a = data.data[3];
-            thisapp.shared.cube.setColor(r,g,b);
-            thisapp.shared.cube.setSize(r,g,b);
-            // Stop 
-            //thisapp.shared.video_manager.removeListener('canvas-data', arguments.callee );
-        });
-
-        // video_mamager --> ('canvas-data')--> surface
-        thisapp.shared.video_manager.on('canvas-data', function(data){
-            thisapp.shared.surface.updateFromCanvasData(data);
-        });
+        thisapp.share( document.querySelector('video#video_video'), 'html_video');
+        thisapp.share( document.querySelector('video#video_video source'), 'html_video_source');
+        thisapp.share( document.querySelector('canvas#video_canvas'), 'html_video_canvas');
+        thisapp.share( document.querySelector('#container3'), 'html_container3d');
+        thisapp.share( document.querySelector('#controls'), 'html_controls');
+        console.log(thisapp.shared);
     }; 
-    return setup_connectors;
+    return setup_html;
 });

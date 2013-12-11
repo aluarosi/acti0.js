@@ -116,7 +116,7 @@ define(['cosa'], function(cosa){
         geometry.computeBoundingSphere();
 
         var material = new THREE.ParticleSystemMaterial({
-            size : 1/10,
+            size : 1/10*0.4,
             vertexColors: true
         });
 
@@ -128,7 +128,8 @@ define(['cosa'], function(cosa){
     
         o.add(particles); 
 
-        o.position.set(-2,-2,0);
+        o.position.set(-2,-1.2,0);
+        o.scale.set(0.4, 0.4, 0.4);
 
 
 
