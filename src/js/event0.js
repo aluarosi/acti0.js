@@ -34,17 +34,17 @@ SUMMARY:
     as an argument. A reference to the event_emitter is also passed to the 
     listener function (wether as an additional argument or injected into the 
     function as the 'this' variable).
-    The listener can be bounded to the emitter object (as usual in other framework
+    The listener can be bound to the emitter object (as usual in other framework
     as jquery and nodejs) or to the receiver object with extended methods 
     (addListenerX() and its equivalent onX()).
     
-    **Case 1** (Like in jquery and nodejs. Listener bounded to emitter).
+    **Case 1** (Like in jquery and nodejs. Listener bound to emitter).
     EMITTER-(calls)->listener()                                    RECEIVER
-    The listener is bounded to the emitter, as if it were a method.
+    The listener is bound to the emitter, as if it were a method.
     The receiver would be called indirectly if it is an object, but often 
     it is a closure context.
     
-    **Case 2** (extended. Listener bounded to receiver).
+    **Case 2** (extended. Listener bound to receiver).
     EMITTER-(calls)----------------------------------->listener()->RECEIVER
     The listener is now a method of the RECEIVER.
     This case makes it easier to call a listener when it is a method 
@@ -56,8 +56,8 @@ define(function(){
 
     EventEmitter.prototype.addListener = function(event_type, listener){
     /**
-    * Adds listener bounded to the emitter object:
-    *   'this' inside this function will be bounded to the event emiiter
+    * Adds listener bound to the emitter object:
+    *   'this' inside this function will be bound to the event emiiter
     *   as usual in other js frameworks (jquery, nodejs).
     */
         if (this._listeners === undefined) {
@@ -74,14 +74,14 @@ define(function(){
 
     EventEmitter.prototype.addListenerX = function(event_type, listener){
     /** 
-    * Adds listener bounded to the receiver object:
-    *   'this' inside this function will be bounded to the event emiiter.
+    * Adds listener bound to the receiver object:
+    *   'this' inside this function will be bound to the event emiiter.
     *   The receiver function must previously be linked to the receiver object
     *   by using the receiver_function.bind(receiver_object) method.
     *   In this case, the emitter passes a reference to itself as the 
     *   1st parameter of the function. 
     * 
-    *   Watch Out! Unlike normal listeners, bounded functions can be 
+    *   Watch Out! Unlike normal listeners, bound functions can be 
     *   added as listeners more than once! (See below).
     */
         if (this._listenersX === undefined) {
@@ -91,8 +91,8 @@ define(function(){
             this._listenersX[event_type] = []; 
         }
         if (this._listenersX[event_type].indexOf(listener) === -1) {
-            // This does not work here as the bounded functions deriving 
-            // from the same function and bounded object are DIFFERENT.
+            // This does not work here as the bound functions deriving 
+            // from the same function and bound object are DIFFERENT.
             this._listenersX[event_type].push( listener );
         }
     }
@@ -113,7 +113,7 @@ define(function(){
         // Call _listeners
         if (this._listeners !== undefined && this._listeners[event_type] !== undefined){
             for (var i=0; i<this._listeners[event_type].length; i++) {
-                // X listeners are called bounded to the emitter
+                // X listeners are called bound to the emitter
                 this._listeners[event_type][i].call(this, event_data);   
             }
         }
@@ -121,7 +121,7 @@ define(function(){
         if (this._listenersX !== undefined && this._listenersX[event_type] !== undefined){
             for (var i=0; i<this._listenersX[event_type].length; i++) {
                 // X listeners are called without bounding them to the emitter
-                //  as they are already bounded to the listener
+                //  as they are already bound to the listener
                 this._listenersX[event_type][i](this, event_data);   
             }
         }
