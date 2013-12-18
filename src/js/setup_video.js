@@ -1,4 +1,5 @@
-/** * This file is part of acti0.js
+/** 
+ * This file is part of acti0.js
  * (JavaScript framework for building interactive visualizations in the web browser)
  * https://github.com/aluarosi/acti0.js
  * 
