@@ -50,8 +50,8 @@ define(['three','jquery','cube','orbitpan','surface'],
             container.outerWidth()/container.outerHeight(),
             0.01, 4000
         );
-        //camera.position.set( 0, 0, this.h3visualizer_controls.size *2.8 );
         camera.position.set( 0, 0, 2 *2.8 );
+        camera.position.set( 0, 0, thisapp.config.D0 );
 
         // On window resize : update camera and renderer dom element size
         window.addEventListener( 'resize',
@@ -87,6 +87,7 @@ define(['three','jquery','cube','orbitpan','surface'],
         // SHARE
         thisapp.share(my_cube, 'cube');
         thisapp.share(my_surface, 'surface');
+        thisapp.share(camera, 'camera');
     
         // RENDER LOOP
         var clock = new THREE.Clock();

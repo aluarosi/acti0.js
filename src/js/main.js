@@ -35,6 +35,7 @@ require([   'jquery',
             'setup_html',
             'setup_video',
             'setup_scene3',
+            'setup_camdriver',
             'setup_webcam',
             'setup_controls',
             'setup_connectors'
@@ -45,6 +46,7 @@ require([   'jquery',
                 setup_html,
                 setup_video,
                 setup_scene3,
+                setup_camdriver,
                 setup_webcam,
                 setup_controls,
                 setup_connectors
@@ -55,6 +57,7 @@ require([   'jquery',
     // CONFIG
     app.setConfig({
         size        : 0.1,
+        D0          : 5.0,  // Distance D0 for camera position
         controls    : {
             source  : ['file','webcam']
         }
@@ -63,6 +66,7 @@ require([   'jquery',
     app.on('setup', setup_html);
     app.on('setup', setup_video);
     app.on('setup', setup_scene3);
+    app.on('setup', setup_camdriver);
     app.on('setup', setup_webcam);
     app.on('setup', setup_controls);
     app.on('setup', setup_connectors);
