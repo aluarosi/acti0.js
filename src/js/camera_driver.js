@@ -20,50 +20,71 @@
  */
 
 // camera_driver
-define(['event0','three'], function(event0, three){
+define(['event0','three','tweenjs'], function(event0, three, tween){
+    // Tween is not imported as require.js, but in global space 
+    //   under name "createjs"
+    var Tween = createjs.Tween;
+    var Ease = createjs.Ease;
+    
 
     var SimpleDriver = function(camera, app, spec){
         var thisobject = this;
         //Validate spec
         var spec = typeof spec !== "undefined" ? spec : {};
-        this.destination = spec.destination || [-1,-1,-1];
-        this.target = null;
-        this.velocity = null;
-        this.camera = null;
+        this.destination = spec.destination || new THREE.Vector3(-1,-1,-1);
+        this.target = THREE.Vector3(0,0,0);
+        this.camera = camera;
         this.app = app;
+        this.duration = 1.0;
+        this.camtween = camera;
 
-        this.clock = new THREE.Clock();
         this.receiveRenderBound = null;
 
-        // Unit vector to destination
-        this.ux = null;
-        this.uy = null;
-        this.uz = null;
     };
 
     SimpleDriver.prototype = Object.create(event0.EventEmitter.prototype);
-    SimpleDriver.prototype.go = function(){
+    SimpleDriver.prototype.go = function(duration, ease){
         // Attach itself to acti0 app 'render' event
+        var ease = ease || Ease.backInOut
+        console.log("camera driver go");
+        this.duration = duration || this.duration;
         this.receiveRenderBound = this.receiveRender.bind(this);
-        this.app.on('render', this.receiveRenderBound ); 
-        this.clock.getDelta();
+        this.app.onX('render', this.receiveRenderBound);
+        // Tween
+        var thisobject = this;
+        this.camtween = Tween.get(thisobject.camera.position).to({
+            x: thisobject.destination.x,
+            y: thisobject.destination.y,
+            z: thisobject.destination.z
+        }, thisobject.duration,
+            ease
+        ).call(function(){
+            // End of the tween! 
+            // Disconnect from tick
+            thisobject.app.removeListenerX('render', thisobject.receiveRenderBound);
+            thisobject.emit('done', thisobject);
+        });
+        console.log("camtween", this.camtween);
     };
     SimpleDriver.prototype.stop = function(){
         
     };
-    SimpleDriver.prototype.set = function(destination, target, velocity){
+    SimpleDriver.prototype.set = function(destination, target){
         this.destination = destination;
         this.target = target;
-        this.velocity = velocity;
-
-        //TODO: this.ux = 
     };
     SimpleDriver.prototype.clear = function(){
         
     };
-    SimpleDriver.prototype.receiveRender = function(){
-        var delta = this.clock.getDelta();
-        //this.camera.position += 
+    SimpleDriver.prototype.update = function(delta){
+        Tween.tick(delta);
+        // TODO: camera.target has to be included in the tween too!!!
+        // This is temporary
+        // TODO: for controlling .at (camera target) we need to handle
+        // cameraControls or something similar !!!
+    };
+    SimpleDriver.prototype.receiveRender = function(app, delta){
+        this.update(delta);
     };
 
 

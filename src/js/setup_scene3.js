@@ -20,8 +20,8 @@
  */
 
 // setup_scene3
-define(['three','jquery','cube','orbitpan','surface'], 
-    function(three, jquery, cube, orbitpan, surface){
+define(['three','jquery','cube','orbitpan','surface','camera_driver'], 
+    function(three, jquery, cube, orbitpan, surface, camera_driver){
     //TODO: THREE is in the global scope now, but three is undefined
 
     // SETUP function to export
@@ -84,16 +84,16 @@ define(['three','jquery','cube','orbitpan','surface'],
         });
         my_surface.build(scene);
 
+        // CAMERA DRIVER
+        var camdriver1 = new camera_driver.SimpleDriver(camera, thisapp);
+
         // SHARE
         thisapp.share(my_cube, 'cube');
         thisapp.share(my_surface, 'surface');
-        thisapp.share(camera, 'camera');
     
         // RENDER LOOP
-        var clock = new THREE.Clock();
-        var update_camera = function(){
+        var update_camera = function(delta){
             // Update Camera
-            var delta = clock.getDelta();
             cameraControls.update(delta);
         };
         var render = function(){
@@ -102,6 +102,21 @@ define(['three','jquery','cube','orbitpan','surface'],
         };
         thisapp.on('render', update_camera);
         thisapp.on('render', render);
+
+
+        // Single camera movement (sample, TODO: take it out of here)
+        camdriver1.set( new THREE.Vector3(
+            camera.position.x + 5, 
+            camera.position.y,
+            camera.position.z
+        ));
+        // Deactivate camera draggin while moving camera
+        thisapp.removeListener('render', update_camera);
+        camdriver1.go(2);
+        // Activate camera mouse control
+        camdriver1.on('done', function(){
+            thisapp.on('render', update_camera);
+        });
     
     };
     return setup_scene3;

@@ -20,11 +20,12 @@
  */
 
 // acti0
-define(['event0'], function(event0){
+define(['event0','acti0_clock'], function(event0, clock){
 
     var App = function(){
         this.config = {};
         this.shared = {};
+        this.clock0 = new clock.Clock(false); // Clock does not autostart
         /**
          * Config
          */
@@ -50,8 +51,11 @@ define(['event0'], function(event0){
         var loop = function(thisapp){
             console.log("event0.app.loop");
             // This is our "inner-reactor loop"
+            var delta = 0;
             (function render(){
-                thisapp.emit('render', thisapp);
+            // TODO: get delta from clock
+                delta = thisapp.clock0.getDelta();
+                thisapp.emit('render', delta);
                 requestAnimationFrame(render); 
             }());
         };
@@ -61,6 +65,7 @@ define(['event0'], function(event0){
         this.run = function(){
             console.log("event0.app.run");
             setup(this);
+            this.clock0.start();
             loop(this);
         };
     };
