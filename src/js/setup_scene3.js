@@ -105,17 +105,23 @@ define(['three','jquery','cube','orbitpan','surface','camera_driver'],
 
 
         // Single camera movement (sample, TODO: take it out of here)
-        camdriver1.set( new THREE.Vector3(
-            camera.position.x + 5, 
-            camera.position.y,
-            camera.position.z
-        ));
+        camdriver1.set({
+            origin: new THREE.Vector3(0,0,5),
+            destination: new THREE.Vector3(0,1,3),
+            target_orig: new THREE.Vector3(0,0,0),
+            target_dest: new THREE.Vector3(1,1,0),
+            fovZ_orig: 1,
+            fovZ_dest: 0.7 
+        });
         // Deactivate camera draggin while moving camera
         thisapp.removeListener('render', update_camera);
         camdriver1.go(2);
         // Activate camera mouse control
+        // but before the target for cameraControls must be updated
         camdriver1.on('done', function(){
+            cameraControls.target.copy( camdriver1.target_dest ),
             thisapp.on('render', update_camera);
         });
+
     }; return setup_scene3;
 });
