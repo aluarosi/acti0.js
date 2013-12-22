@@ -117,7 +117,5 @@ define(['three','jquery','cube','orbitpan','surface','camera_driver'],
         camdriver1.on('done', function(){
             thisapp.on('render', update_camera);
         });
-    
-    };
-    return setup_scene3;
+    }; return setup_scene3;
 });

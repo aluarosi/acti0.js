@@ -31,8 +31,9 @@ define(['event0','three','tweenjs'], function(event0, three, tween){
         var thisobject = this;
         //Validate spec
         var spec = typeof spec !== "undefined" ? spec : {};
+        this.origin = null;
         this.destination = spec.destination || new THREE.Vector3(-1,-1,-1);
-        this.target = THREE.Vector3(0,0,0);
+        this.target = new THREE.Vector3(0,0,0);
         this.camera = camera;
         this.app = app;
         this.duration = 1.0;
@@ -44,20 +45,23 @@ define(['event0','three','tweenjs'], function(event0, three, tween){
 
     SimpleDriver.prototype = Object.create(event0.EventEmitter.prototype);
     SimpleDriver.prototype.go = function(duration, ease){
-        // Attach itself to acti0 app 'render' event
-        var ease = ease || Ease.backInOut
         console.log("camera driver go");
+        var ease = ease || Ease.backInOut;
         this.duration = duration || this.duration;
+        this.origin = this.camera.position.clone();
+        // Attach itself to acti0 app 'render' event
         this.receiveRenderBound = this.receiveRender.bind(this);
         this.app.onX('render', this.receiveRenderBound);
         // Tween
         var thisobject = this;
-        this.camtween = Tween.get(thisobject.camera.position).to({
-            x: thisobject.destination.x,
-            y: thisobject.destination.y,
-            z: thisobject.destination.z
-        }, thisobject.duration,
-            ease
+        this.camtween = Tween.get(thisobject.camera.position).to(
+            { 
+                x: thisobject.destination.x, 
+                y: thisobject.destination.y,
+                z: thisobject.destination.z
+            }, 
+            thisobject.duration,
+            ease 
         ).call(function(){
             // End of the tween! 
             // Disconnect from tick
@@ -70,18 +74,16 @@ define(['event0','three','tweenjs'], function(event0, three, tween){
         
     };
     SimpleDriver.prototype.set = function(destination, target){
-        this.destination = destination;
-        this.target = target;
+        this.destination = destination || this.destination;
+        this.target = target || this.target;
     };
     SimpleDriver.prototype.clear = function(){
         
     };
     SimpleDriver.prototype.update = function(delta){
         Tween.tick(delta);
+        this.camera.lookAt(this.target);
         // TODO: camera.target has to be included in the tween too!!!
-        // This is temporary
-        // TODO: for controlling .at (camera target) we need to handle
-        // cameraControls or something similar !!!
     };
     SimpleDriver.prototype.receiveRender = function(app, delta){
         this.update(delta);
