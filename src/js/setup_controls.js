@@ -20,7 +20,7 @@
  */
 
 // setup_controls
-define(['datgui','jquery'], function(datgui,jquery){
+define(['datgui','jquery','three'], function(datgui,jquery,three){
     /**
         datgui -> not imported the requirejs way
         We get the reference to 'dat' instead.
@@ -41,8 +41,13 @@ define(['datgui','jquery'], function(datgui,jquery){
         // Source selector
         var ctrl_source = f_visualizer.add(
             thisapp.config.controls,
-            'source',thisapp.config.controls.source
+            'sources',thisapp.config.controls.sources
         ).name("Source");
+        // Camera viewpoints
+        var ctrl_viewpoint = f_camera.add(
+            thisapp.config.controls,
+            'viewpoints',thisapp.config.controls.viewpoints
+        ).name("Viewpoint");
 
 
         // CONNECTIONS
@@ -59,6 +64,10 @@ define(['datgui','jquery'], function(datgui,jquery){
             };
             selector[val]();
         }); 
+        ctrl_viewpoint.onChange(function(val){
+            thisapp.shared.goToViewpoint(thisapp.config.viewpoints[val-1]);
+        });
+    
 
     };
     return setup_controls;

@@ -52,6 +52,7 @@ define(['three','jquery','cube','orbitpan','surface','camera_driver'],
         );
         camera.position.set( 0, 0, 2 *2.8 );
         camera.position.set( 0, 0, thisapp.config.D0 );
+        
 
         // On window resize : update camera and renderer dom element size
         window.addEventListener( 'resize',
@@ -86,10 +87,25 @@ define(['three','jquery','cube','orbitpan','surface','camera_driver'],
 
         // CAMERA DRIVER
         var camdriver1 = new camera_driver.SimpleDriver(camera, thisapp);
+        // Privileged points of view are defined in thisapp.config
+        var goToViewpoint = function(viewpoint, duration){
+            // Deactivate camera draggin while moving camera
+            thisapp.removeListener('render', update_camera);
+            camdriver1.set(viewpoint);
+            camdriver1.go(duration);
+        };
+        camdriver1.on('done', function(){
+            // Reattach orbit/pan camera controls when tween is done
+            // 1st we need to adjust camera controls' target 
+            cameraControls.target.copy(camdriver1.target_dest);
+            thisapp.on('render', update_camera);
+        });
 
         // SHARE
         thisapp.share(my_cube, 'cube');
         thisapp.share(my_surface, 'surface');
+        thisapp.share(camdriver1, 'camdriver1');
+        thisapp.share(goToViewpoint, 'goToViewpoint');
     
         // RENDER LOOP
         var update_camera = function(delta){
@@ -104,24 +120,6 @@ define(['three','jquery','cube','orbitpan','surface','camera_driver'],
         thisapp.on('render', render);
 
 
-        // Single camera movement (sample, TODO: take it out of here)
-        camdriver1.set({
-            origin: new THREE.Vector3(0,0,5),
-            destination: new THREE.Vector3(0,1,3),
-            target_orig: new THREE.Vector3(0,0,0),
-            target_dest: new THREE.Vector3(1,1,0),
-            fovZ_orig: 1,
-            fovZ_dest: 0.7 
-        });
-        // Deactivate camera draggin while moving camera
-        thisapp.removeListener('render', update_camera);
-        camdriver1.go(2);
-        // Activate camera mouse control
-        // but before the target for cameraControls must be updated
-        camdriver1.on('done', function(){
-            cameraControls.target.copy( camdriver1.target_dest ),
-            thisapp.on('render', update_camera);
-        });
 
     }; return setup_scene3;
 });

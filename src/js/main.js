@@ -56,9 +56,32 @@ require([   'jquery',
     // CONFIG
     app.setConfig({
         size        : 0.1,
-        D0          : 5.0,  // Distance D0 for camera position
+        D0          : 5.0,  // Distance D0 for camera position,
+        viewpoints  : [
+            {   destination: new THREE.Vector3(0.0,5,0.1),
+                target_dest: new THREE.Vector3(0,0,0),
+                fovZ_dest: 1.0 
+            },
+            {   destination: new THREE.Vector3(2.5,2.5,2.5),
+                target_dest: new THREE.Vector3(0,0,0),
+                fovZ_dest: 1.0 
+            },
+            {   destination: new THREE.Vector3(-2.5,2.5, 2.5),
+                target_dest: new THREE.Vector3(0,0,0),
+                fovZ_dest: 1.0 
+            },
+            {   destination: new THREE.Vector3(-10,8,10),
+                target_dest: new THREE.Vector3(0,0,0),
+                fovZ_dest: 4.0 
+            },
+            {   target_dest: new THREE.Vector3(0,0,-1),
+            },
+            {   target_dest: new THREE.Vector3(0,0,1),
+            }
+        ],
         controls    : {
-            source  : ['file','webcam']
+            sources : ['file','webcam'],
+            viewpoints  : [1, 2, 3, 4, 5, 6]
         }
     }); 
     // SETUP

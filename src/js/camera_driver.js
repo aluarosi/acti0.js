@@ -55,18 +55,21 @@ define(['event0','three','tweenjs'], function(event0, three, tween){
     SimpleDriver.prototype = Object.create(event0.EventEmitter.prototype);
     SimpleDriver.prototype.go = function(duration, ease){
         console.log("camera driver go");
-        var ease = ease || Ease.linear;
+        var thisobject = this;
+        // 1st reset the tween and remove the final callback if still exists
+        this.tweenparam.t = 0.0;
+        this.app.removeListenerX('render', this.receiveRenderBound); 
+        // 
         this.duration = duration || this.duration;
         this.origin = this.camera.position.clone();
         // Attach itself to acti0 app 'render' event
         this.receiveRenderBound = this.receiveRender.bind(this);
         this.app.onX('render', this.receiveRenderBound);
         // Tween
-        var thisobject = this;
         this.camtween = Tween.get(thisobject.tweenparam).to(
             {t: 1.0}, 
             thisobject.duration,
-            ease 
+            Ease.linear 
         ).call(function(){
             // End of the tween! 
             // Disconnect from tick
@@ -92,6 +95,7 @@ define(['event0','three','tweenjs'], function(event0, three, tween){
     SimpleDriver.prototype.update = function(delta){
         Tween.tick(delta);
         var tau = this.tweenparam.t; 
+        console.log(tau);
         // Tween position
         this.camera.position = this.origin.clone().add(
             this.destination.clone().sub(this.origin).multiplyScalar(tau)

@@ -97,26 +97,35 @@ define(['cosa'], function(cosa){
         var idx =0;
         var color = new THREE.Color().setRGB(0,1,0);
         eachpixel( function(i,j,r,g,b) {
-            var x = j/20;
-            var y = i/20;
+            var x = (j-w/2)/20.0;
+            var y = (i-h/2)/20.0;
 
             idx = (w*i + j) * 3;
 
             positions[idx] = x;
-            positions[idx+1] = y;
-            positions[idx+2] = g/255*3;
+            positions[idx+1] = g/255*3;
+            positions[idx+2] = y;
 
             color.setRGB(r/255, g/255, b/255);
 
+            /**
             colors[idx] = color.r;
             colors[idx+1] = color.g;
             colors[idx+2] = color.b;
+            */
+            colors[idx] = 0;
+            colors[idx+1] = color.g;
+            colors[idx+2] = 0;
+            
         });
 
         geometry.computeBoundingSphere();
 
         var material = new THREE.ParticleSystemMaterial({
             size : 1/10*0.4,
+            //TODO: threejs does not scale the particle with the zoom
+            //      only with the distance! Check this!
+            sizeAttenuation : true, 
             vertexColors: true
         });
 
@@ -128,7 +137,6 @@ define(['cosa'], function(cosa){
     
         o.add(particles); 
 
-        o.position.set(-2,-1.2,0);
         o.scale.set(0.4, 0.4, 0.4);
 
 
