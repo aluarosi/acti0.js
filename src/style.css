@@ -35,7 +35,6 @@ canvas#video_canvas {
 }
 
 #div_zoom {
-    border: 1px solid orange;
     position: absolute;
     right: 0px;
     bottom: 0px; 
@@ -44,7 +43,6 @@ canvas#video_canvas {
     z-index: 10;
 }
 #div_viewpoints {
-    border: 1px solid orange;
     position: absolute;
     right: 100px;
     bottom: 0px; 
