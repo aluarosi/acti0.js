@@ -23,11 +23,13 @@
 require.config({
     urlBase: "js",
     paths: {
-        jquery: "lib/jquery",
-        three:  "lib/three_r63",
-        orbitpan: "lib/OrbitAndPanControls.new",
-        datgui: "lib/dat.gui.min",
-        tweenjs: "lib/tweenjs"
+        jquery  : "lib/jquery",
+        three   : "lib/three_r63",
+        orbitpan    : "lib/OrbitAndPanControls.new",
+        datgui  : "lib/dat.gui.min",
+        tweenjs : "lib/tweenjs",
+        kinetic : "lib/kinetic",
+        d3      : "lib/d3"
     }
 });
 
@@ -38,6 +40,8 @@ require([   'jquery',
             'setup_scene3',
             'setup_webcam',
             'setup_controls',
+            'setup_displayzoom',
+            'setup_d3test',
             'setup_connectors'
             ], 
             function(
@@ -48,6 +52,8 @@ require([   'jquery',
                 setup_scene3,
                 setup_webcam,
                 setup_controls,
+                setup_displayzoom,
+                setup_d3test,
                 setup_connectors
             ){
 
@@ -90,6 +96,8 @@ require([   'jquery',
     app.on('setup', setup_scene3);
     app.on('setup', setup_webcam);
     app.on('setup', setup_controls);
+    app.on('setup', setup_displayzoom);
+    app.on('setup', setup_d3test);
     app.on('setup', setup_connectors);
 
     // RUN

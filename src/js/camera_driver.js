@@ -95,7 +95,6 @@ define(['event0','three','tweenjs'], function(event0, three, tween){
     SimpleDriver.prototype.update = function(delta){
         Tween.tick(delta);
         var tau = this.tweenparam.t; 
-        console.log(tau);
         // Tween position
         this.camera.position = this.origin.clone().add(
             this.destination.clone().sub(this.origin).multiplyScalar(tau)

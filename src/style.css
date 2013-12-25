@@ -26,9 +26,29 @@ canvas#video_canvas {
     position: absolute;
 }
 
-#controls{
+#controls {
     position: absolute;
     right: 0px;
     top: 0px;
     border: 1px solid red;
+    z-index: 30;
+}
+
+#div_zoom {
+    border: 1px solid orange;
+    position: absolute;
+    right: 0px;
+    bottom: 0px; 
+    width: 100px;
+    height: 200px;
+    z-index: 10;
+}
+#div_viewpoints {
+    border: 1px solid orange;
+    position: absolute;
+    right: 100px;
+    bottom: 0px; 
+    width: 200px;
+    height: 200px;
+    z-index: 20;
 }
