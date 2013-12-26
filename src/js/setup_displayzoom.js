@@ -48,9 +48,24 @@ define(['kinetic'], function(kinetic){
             strokeWidth: 4
         });
 
+        var initial_zoom = 1; // TODO Temporary, this should be taken from the camera(driver)
+        var fust2d = new kinetic.Polygon({
+            points: [   0,0, 
+                        stage.attrs.height/(2*initial_zoom), stage.attrs.height,
+                        -stage.attrs.height/(2*initial_zoom), stage.attrs.height
+            ],
+            fill:   'white',
+            stroke: 'blue',
+            opacity: 0.2,
+            strokewith: 1,
+            rotation: Math.PI,
+            x: stage.attrs.width/2,
+            y: stage.attrs.height-30
+        });
 
         // Build
-        layer.add(circle);
+        //layer.add(circle);
+        layer.add(fust2d);
         stage.add(layer);
 
         // Events
@@ -63,16 +78,27 @@ define(['kinetic'], function(kinetic){
         var imageObj = new Image();
         var callback = function(){
             var camera = new kinetic.Image({
-                x : 0,
-                y : 0,
-                width : imageObj.width/2,
-                height : imageObj.height/2,
+                x : stage.attrs.width/2-imageObj.width/8,
+                y : stage.attrs.height-imageObj.height/4,
+                width : imageObj.width/4,
+                height : imageObj.height/4,
                 image: imageObj
             });
             layer.add(camera);
+            layer.draw();
         };
         imageObj.onload = callback;
-        imageObj.src = "http://172.16.0.201:8000/test/img/camera.png";
+        imageObj.src = "img/camera.png";
+
+        // Update canvas whenever there is a change in fov (zoom)
+        thisapp.shared.camdriver1.on('update-fov', function(zoom){
+            fust2d.setPoints([
+                0,0, 
+                stage.attrs.height/(2*zoom), stage.attrs.height,
+                -stage.attrs.height/(2*zoom), stage.attrs.height
+            ]);
+            layer.draw();
+        });
 
     };
     return setup_displayzoom;

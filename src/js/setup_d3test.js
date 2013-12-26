@@ -66,8 +66,8 @@ define(['d3'], function(d3dummy){
             .attr("cx", set_cx)
             .attr("cy", set_cy)
             .attr("r", r)
-            .style("fill", "orange")
-            .style("stroke", "grey")
+            .style("fill", "grey")
+            .style("stroke", "white")
             .on("click", function(d,i){
                 console.log(i);
                 thisapp.shared.goToViewpoint(thisapp.config.viewpoints[i]);
@@ -84,7 +84,7 @@ define(['d3'], function(d3dummy){
                 .data(my_viewpoints)
                 .transition().duration(1000)
                 .style("fill", function(d,i){
-                    return d.__selected__ ? "green" : "orange";
+                    return d.__selected__ ? "blue" : "grey";
                 });
             
         };

@@ -113,9 +113,9 @@ define(['cosa'], function(cosa){
             colors[idx+1] = color.g;
             colors[idx+2] = color.b;
             */
-            colors[idx] = 0;
+            colors[idx] = color.r;
             colors[idx+1] = color.g;
-            colors[idx+2] = 0;
+            colors[idx+2] = color.b;
             
         });
 

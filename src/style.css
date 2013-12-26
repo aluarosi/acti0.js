@@ -38,13 +38,13 @@ canvas#video_canvas {
     position: absolute;
     right: 0px;
     bottom: 0px; 
-    width: 100px;
+    width: 150px;
     height: 200px;
     z-index: 10;
 }
 #div_viewpoints {
     position: absolute;
-    right: 100px;
+    right: 150px;
     bottom: 0px; 
     width: 200px;
     height: 200px;

@@ -108,6 +108,8 @@ define(['event0','three','tweenjs'], function(event0, three, tween){
         var fovZ = this.fovZ_orig + (
             (this.fovZ_dest - this.fovZ_orig)*tau
         );
+        // Emit 'update-fov' event so that views can display fov changes
+        this.emit('update-fov', fovZ);
         this.camera.fov = this.convertZToFov(fovZ);
         this.camera.updateProjectionMatrix();
         // TODO: camera.target has to be included in the tween too!!!
