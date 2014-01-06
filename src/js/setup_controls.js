@@ -34,20 +34,22 @@ define(['datgui','jquery','three'], function(datgui,jquery,three){
         var controlsContainer = $(thisapp.shared.html_controls);
         controlsContainer.append(gui.domElement); 
         //Folders
-        var f_visualizer = gui.addFolder("Visualization");
-        var f_camera = gui.addFolder("Camera");
+        var f_visualizer = gui.addFolder("WebCam/File");
+        //var f_camera = gui.addFolder("Camera");
         f_visualizer.open();
-        f_camera.open();
+        //f_camera.open();
         // Source selector
         var ctrl_source = f_visualizer.add(
             thisapp.config.controls,
             'sources',thisapp.config.controls.sources
         ).name("Source");
         // Camera viewpoints
+        /**
         var ctrl_viewpoint = f_camera.add(
             thisapp.config.controls,
             'viewpoints',thisapp.config.controls.viewpoints
         ).name("Viewpoint");
+        */
 
 
         // CONNECTIONS
@@ -57,16 +59,20 @@ define(['datgui','jquery','three'], function(datgui,jquery,three){
                     thisapp.shared.video_manager.setSource(        
                         $(thisapp.shared.html_video_source).attr("src")
                     );
+                    $(thisapp.shared.html_license).css("display","block");
                 },
                 'webcam'    : function(){
                     thisapp.shared.webcam.activate();
+                    $(thisapp.shared.html_license).css("display","none");
                 }
             };
             selector[val]();
         }); 
+        /**
         ctrl_viewpoint.onChange(function(val){
             thisapp.shared.goToViewpoint(thisapp.config.viewpoints[val-1]);
         });
+        */
     
 
     };

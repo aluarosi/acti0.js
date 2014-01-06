@@ -1,0 +1,18 @@
+/**
+Information about the LICENSE of the image and video files included in this folder.
+
+If not made explicit for a particular image (see list below) the following author and license apply:
+Author: Alvaro Santamaria Herrero http://dofideas.com 
+License: Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) http://creativecommons.org/licenses/by-sa/3.0/
+ */
+
+license_info = {
+    '00244=77545=77455=77369.ogv' : {
+        title: "electricsheep-flock-244-77500-5",
+        description: "Archive of flock 244 of the Electric Sheep, see http://electricsheep.org and http://scottdraves.com",
+        license: "Creative Commons license:<a href="http://creativecommons.org/licenses/by-nc/3.0/us/">Attribution-Noncommercial 3.0 United States</a>",
+        author: 'Scott Draves and the Electric Sheep',
+        href:   "https://archive.org/details/electricsheep-flock-244-77500-5",
+        links:  ["http://electricsheep.org","http://scottdraves.com"]
+    }
+};

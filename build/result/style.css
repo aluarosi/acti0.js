@@ -59,8 +59,8 @@ canvas#video_canvas {
 
 #label-video {
     position:absolute;
-    bottom: 0px;
-    left: 100px;
+    bottom: 80px;
+    left: 0px;
 }
 
 #label-d3js {
@@ -84,5 +84,48 @@ canvas#video_canvas {
 #label-threejs {
     position: absolute;
     right: 50%;
-    bottom: 0px;
+    top: 0px;
 }
+
+#video-license {
+    font-size: 89%;
+    position:absolute;
+    left: 100px;
+    bottom: 0px;
+    width: 600px;
+    color: white;
+    font-family: "Consolas","monospace";
+    padding-left:1em;
+}
+
+a:link {color:#FF00FF;}      /* unvisited link */
+a:visited {color:#00FF00;}  /* visited link */
+a:hover {color:#FF00FF;}  /* mouse over link */
+a:active {color:#FF00FF;}  /* selected link */ 
+
+#forkme {
+    z-index: 200;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height:100px;
+
+}
+
+#menu {
+    position: absolute;
+    top: 100px;
+    right: 0px;
+    z-index: 200;
+    background-color: rgba(128,128,128,0.5);
+    border:1px solid #333333;
+    font-family: "Consolas","monospace";
+    padding: 0.5em;
+    color: white;
+    text-align: center;
+}
+
+#menu a {
+    color: white;
+    font-size: 130%;
+};

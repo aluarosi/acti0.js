@@ -51,7 +51,7 @@ define(['three','jquery','cube','orbitpan','surface','camera_driver'],
             0.01, 4000
         );
         camera.position.set( 0, 0, 2 *2.8 );
-        camera.position.set( 0, 0, thisapp.config.D0 );
+        camera.position.set( -thisapp.config.D0 *0.7, thisapp.config.D0 * 0.7, thisapp.config.D0 *0.7 );
         
 
         // On window resize : update camera and renderer dom element size

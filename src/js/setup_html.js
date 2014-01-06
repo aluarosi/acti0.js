@@ -29,7 +29,7 @@ define([], function(){
         thisapp.share( document.querySelector('canvas#video_canvas'), 'html_video_canvas');
         thisapp.share( document.querySelector('#container3'), 'html_container3d');
         thisapp.share( document.querySelector('#controls'), 'html_controls');
-        console.log(thisapp.shared);
+        thisapp.share( document.querySelector('#video-license'), 'html_license');
     }; 
     return setup_html;
 });
