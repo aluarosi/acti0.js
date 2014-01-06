@@ -55,7 +55,7 @@ define(['kinetic'], function(kinetic){
                         -stage.attrs.height/(2*initial_zoom), stage.attrs.height
             ],
             fill:   'white',
-            stroke: 'blue',
+            stroke: 'green',
             opacity: 0.2,
             strokewith: 1,
             rotation: Math.PI,

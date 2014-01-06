@@ -30,7 +30,6 @@ canvas#video_canvas {
     position: absolute;
     right: 0px;
     top: 0px;
-    border: 1px solid red;
     z-index: 30;
 }
 
@@ -49,4 +48,41 @@ canvas#video_canvas {
     width: 200px;
     height: 200px;
     z-index: 20;
+}
+
+.label {
+    z-index: 100;
+    color: green;
+    font-family: "Offside";
+    font-size: 140%;
+}
+
+#label-video {
+    position:absolute;
+    bottom: 0px;
+    left: 100px;
+}
+
+#label-d3js {
+    position: absolute;
+    right: 250px;
+    bottom: 200px;
+}
+
+#label-kineticjs {
+    position: absolute;
+    right: 50px;
+    bottom: 200px;
+}
+
+#label-webcam {
+    position: absolute;
+    right: 250px;
+    top: 25px;
+}
+
+#label-threejs {
+    position: absolute;
+    right: 50%;
+    bottom: 0px;
 }

@@ -84,7 +84,7 @@ define(['d3'], function(d3dummy){
                 .data(my_viewpoints)
                 .transition().duration(1000)
                 .style("fill", function(d,i){
-                    return d.__selected__ ? "blue" : "grey";
+                    return d.__selected__ ? "green" : "grey";
                 });
             
         };
