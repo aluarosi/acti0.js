@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--
+@source: https://github.com/aluarosi/acti0.js
+@licstart  
+    This file is part of acti0.js
+    (JavaScript framework for building interactive visualizations in the web browser)
+    https://github.com/aluarosi/acti0.js
+    
+    Copyright (C) 2013 Alvaro Santamaria Herrero (aluarosi)
+    
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+@licend  
+-->
+<html>
+    <head>
+        <title>Test</title>
+        <link rel="stylesheet" href="style.css"/>
+        <script src="js/lib/require.js" data-main="js/main-built"></script>
+        
+		<link href='http://fonts.googleapis.com/css?family=Offside' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <div id="canvas_div">
+            <canvas id="video_canvas">
+            </canvas>
+        </div>
+        <div id="container3"></div>
+        <div class="label" id="label-threejs">ThreeJS</div>
+        <div id="video_div">
+            <div class="label" id="label-video">HTML5 &lt;video&gt;</div>
+            <video id="video_video" controls loop autoplay>
+                <source src="img/00244=77545=77455=77369.ogv">
+            </video>
+        </div>
+        <div id="controls">
+        </div>
+        <div class="label" id="label-webcam">WebCam</div>
+        <div id="div_zoom">
+            <!-- Canvas for Kineticjs demo -->
+        </div>
+        <div class="label" id="label-kineticjs">KineticJS</div>
+        <div id="div_viewpoints">
+            <!-- Svg for d3.js demo -->
+        </div>
+        <div class="label" id="label-d3js">D3.js</div>
+    </body>
+</html>
+
+
