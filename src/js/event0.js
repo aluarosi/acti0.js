@@ -72,6 +72,18 @@ define(function(){
     }
     EventEmitter.prototype.on = EventEmitter.prototype.addListener;
 
+    EventEmitter.prototype.once = function(event_type, listener){
+        var thisemitter = this;
+        var wrapped_listener = function(event_data){
+            // 1st detach the wrapped listener, then call the original listener 
+            // 'this' should have been injected here by the emit function
+            // but just in case, we call the "outer this"
+            thisemitter.removeListener(event_type, wrapped_listener);
+            listener.call(thisemitter, event_data);
+        };
+        this.on(event_type, wrapped_listener);
+    };
+
     EventEmitter.prototype.addListenerX = function(event_type, listener){
     /** 
     * Adds listener bound to the receiver object:

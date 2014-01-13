@@ -69,7 +69,7 @@ define(['event0','three','tweenjs'], function(event0, three, tween){
         this.camtween = Tween.get(thisobject.tweenparam).to(
             {t: 1.0}, 
             thisobject.duration,
-            Ease.linear 
+            Ease.quadInOut 
         ).call(function(){
             // End of the tween! 
             // Disconnect from tick
@@ -120,10 +120,10 @@ define(['event0','three','tweenjs'], function(event0, three, tween){
 
     // Aux methods
     SimpleDriver.prototype.convertFovToZ = function(fov){
-        return 1/Math.tan(fov/2*(Math.PI/180)) / this.camera.aspect;  
+        return 1/(2*this.camera.aspect*Math.tan(fov/2*(Math.PI/180)));
     };
     SimpleDriver.prototype.convertZToFov = function(fovZ){
-        return 2*Math.atan2(1,fovZ*this.camera.aspect) * (180/Math.PI);
+        return 2*Math.atan2(1,2*this.camera.aspect*fovZ) * (180/Math.PI)
     };
     SimpleDriver.prototype.getInitialTarget = function(){
         /**
